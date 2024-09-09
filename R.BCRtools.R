@@ -518,8 +518,8 @@ DNA_lambdaVDJ.Extract <- function(sequence) {
 }
 
 # Test
-seq <- "asdfgteerpkbmCAAGCAGTGTACCAGGCCGTTGCGTAGCTTACTGTTCTGTGCTGACTGTCTTATGLSSDFPǴBMSBP"
-print(DNA_lambdaVDJ.Extract(seq))
+#seq <- "asdfgteerpkbmCAAGCAGTGTACCAGGCCGTTGCGTAGCTTACTGTTCTGTGCTGACTGTCTTATGLSSDFPǴBMSBP"
+#print(DNA_lambdaVDJ.Extract(seq))
 
 
 #------------------------------------------
