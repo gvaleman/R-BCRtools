@@ -1,13 +1,33 @@
-#Mis funciones 
+#----------------------------------------------------------------------------------------------------#
+# Package:     R-BCRtools                                                                            #
+# Title:       Herramientas para el Análisis de BCR                                                  #
+# Version:     0.1.0                                                                                 #
+# Author:      Gerald Vásquez Alemán                                                                 #
+#   - Email:   almngerald@gmail.com                                                                  #
+#   - Role:    Bioanalista - Epidemiólogo, Instituto de Ciencias Sostenibles - Nicaragua              #
+# Description: Este paquete proporciona funciones útiles para el análisis de datos relacionados con   #
+#              el receptor de células B (BCR), incluyendo:                                            #
+#              - Conteo de grupos                                                                     #
+#              - Extracción de ORs                                                                    #
+#              - Traducción de secuencias                                                             #
+#              - Entre otros análisis específicos del BCR                                             #
+#                                                                                                    #
+# Depends:     R (>= 4.0)                                                                             #
+# Imports:     dplyr                                                                                  #
+#----------------------------------------------------------------------------------------------------#
+
+
+
+#Dependencias
 
 if (!requireNamespace("pacman", quietly = TRUE)) {
   install.packages("pacman")
 }
 
 library(pacman)
-
-library(pacman)
+library(Biostrings)
 p_load(dplyr)
+
 
 #----------------------------------------------------#
 #            COnteo de grupod por columna            #
@@ -125,6 +145,7 @@ DNAtoAmino_V1 <- function(cadena) {
   }
 }
 
+
 DNAtoAmino_V2 <- function(cadena) {
   # Crear el data frame de codones
   codones_df <- data.frame(
@@ -204,11 +225,6 @@ StopCodonHunter <- function(columna) {
 }
 
 
-# Aplicar la función al dataframe
- #df$tiene_codon_parada <- detectar_codon_parada(df$secuencia_nucleotidos)
-
-
-
 #--------------------------------------------------#
 #           TRaducir de RNA to amino               #
 #--------------------------------------------------#
@@ -277,7 +293,7 @@ RNAtoAmino <- function(cadena) {
   }
 }
 
-RNAtoAmino("UUUUUUUGG")
+
 
 
 DNAtoAmino <- function(cadena) {
@@ -380,7 +396,7 @@ KmerHunter <- function(secuencias, k) {
   })
 }
 
-#Añadir errores: Argumento K es missing
+
 
 
 #----------------------------------------------------#
@@ -426,9 +442,6 @@ seqAAtoFasta <- function(dataframe, columna_nombres, columna_secuencias, ruta_sa
   writeXStringSet(aa, format = "fasta", file = ruta_salida)
 }
 
-# Uso de la función
-# seqAAtoFasta(tu_dataframe, "nombre_columna_nombres", "nombre_columna_secuencias", "ruta_salida.fasta")
-
 
 
 #--------------------------------------------------#
@@ -471,13 +484,6 @@ DNA_kappaVDJ.Extract <- function(sequence) {
   return(NULL)
 }
 
-# Test
-
-
-Acute_Bcells_dataset_IGL %>% filter(constant == "IGL")
-#DNA_kappaVDJExtract(Acute_Bcells_dataset_IGL$sequence)
-
-
 
 #-------------------------------------#
 #        Extraer lambda
@@ -516,10 +522,6 @@ DNA_lambdaVDJ.Extract <- function(sequence) {
   
   return(NULL)
 }
-
-# Test
-#seq <- "asdfgteerpkbmCAAGCAGTGTACCAGGCCGTTGCGTAGCTTACTGTTCTGTGCTGACTGTCTTATGLSSDFPǴBMSBP"
-#print(DNA_lambdaVDJ.Extract(seq))
 
 
 #------------------------------------------
@@ -582,11 +584,6 @@ DNA_HeavyVDJ.extract <- function(df, columna) {
 
 
 
-df_test <-
-Acute_Bcells_dataset_IGH %>% filter(codigo == 5904) %>% filter(CDR3Length == 54) %>% filter(celltype == "Plasmablast") %>% filter(VGene_clonalyst == "IGHV3-23")
-  
-DNA_HeavyVDJ.extract(df_test$sequence)
-DNA_HeavyVDJ.extract(df_test, "sequence")
 
 #----------------------------------#
 #    EXTRAER VDJ A PARTIR DE AA 2 #
@@ -625,10 +622,6 @@ AA_HeavyVDJ.extract <- function(df, columna) {
   
   return(subcadenas_encontradas)
 }
-
-          # AA_HeavyVDJ.extract(df, "column")
-
-generateORICP
 
 
 #-------------------------------------#
