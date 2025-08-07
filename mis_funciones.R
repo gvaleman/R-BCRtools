@@ -5,8 +5,6 @@ if (!requireNamespace("pacman", quietly = TRUE)) {
 }
 
 library(pacman)
-
-library(pacman)
 p_load(dplyr)
 
 #----------------------------------------------------#
@@ -60,9 +58,6 @@ getORICP <- function(modelo) {
 #--------------------------------------------------#
 #           TRaducir de DNA to amino               #
 #--------------------------------------------------#
-
-# No aceptar numeros
-#Mensaje: No cadena en multiplo de 3
 
 DNAtoAmino_V1 <- function(cadena) {
   
@@ -185,12 +180,9 @@ DNAtoAmino_V2 <- function(cadena) {
 }
 
 
-
-
 #--------------------------------------------------#
 #         Codon stop                             #
 #--------------------------------------------------#
-library(dplyr)
 
 # Función para detectar codones de parada
 StopCodonHunter <- function(columna) {
@@ -203,18 +195,13 @@ StopCodonHunter <- function(columna) {
   })
 }
 
-
 # Aplicar la función al dataframe
- #df$tiene_codon_parada <- detectar_codon_parada(df$secuencia_nucleotidos)
-
+# df$tiene_codon_parada <- detectar_codon_parada(df$secuencia_nucleotidos)
 
 
 #--------------------------------------------------#
 #           TRaducir de RNA to amino               #
 #--------------------------------------------------#
-
-# No aceptar numeros
-#Mensaje: No cadena en multiplo de 3
 
 RNAtoAmino <- function(cadena) {
   
@@ -234,7 +221,7 @@ RNAtoAmino <- function(cadena) {
       "F", "F", "L", "L", "L", "L", "L", "L",
       "I", "I", "I", "M", "V", "V", "V", "V",
       "S", "S", "S", "S", "P", "P", "P", "P",
-      "U", "U", "U", "U", "A", "A", "A", "A",
+      "T", "T", "T", "T", "A", "A", "A", "A",
       "Y", "Y", "-", "-", "H", "H", "Q", "Q",
       "N", "N", "K", "K", "D", "D", "E", "E",
       "C", "C", "-", "W", "R", "R", "R", "R", "S", "S", "R", "R",
@@ -277,8 +264,7 @@ RNAtoAmino <- function(cadena) {
   }
 }
 
-#RNAtoAmino("UUUUUUUGG")
-
+# Ejemplo de uso: RNAtoAmino("UUUUUUUGG")
 
 DNAtoAmino <- function(cadena) {
   # Diccionario
@@ -380,14 +366,12 @@ KmerHunter <- function(secuencias, k) {
   })
 }
 
-#Añadir errores: Argumento K es missing
+# Añadir errores: Argumento K es missing
 
 
 #----------------------------------------------------#
 #     Extraer sequencias de nucleotidos a fasta      #
 #----------------------------------------------------#
-
-library(Biostrings)
 
 # Definición de la función
 seqDNAtoFasta <- function(dataframe, columna_nombres, columna_secuencias, ruta_salida) {
@@ -399,17 +383,16 @@ seqDNAtoFasta <- function(dataframe, columna_nombres, columna_secuencias, ruta_s
   names(secuencias) <- nombres
   
   # Convertir a DNAStringSet
-  dna <- DNAStringSet(secuencias)
+  dna <- Biostrings::DNAStringSet(secuencias)
   
   # Escribir al archivo
-  writeXStringSet(dna, format = "fasta", file = ruta_salida)
+  Biostrings::writeXStringSet(dna, format = "fasta", file = ruta_salida)
 }
 
 
 #----------------------------------------------------#
-#     Extraer sequencias de nucleotidos a fasta      #
+#     Extraer sequencias de aminoacidos a fasta      #
 #----------------------------------------------------#
-# dependencia: Biostrins
 
 seqAAtoFasta <- function(dataframe, columna_nombres, columna_secuencias, ruta_salida) {
   # Extraer secuencias y nombres
@@ -420,15 +403,14 @@ seqAAtoFasta <- function(dataframe, columna_nombres, columna_secuencias, ruta_sa
   names(secuencias) <- nombres
   
   # Convertir a AAStringSet
-  aa <- AAStringSet(secuencias)
+  aa <- Biostrings::AAStringSet(secuencias)
   
   # Escribir al archivo
-  writeXStringSet(aa, format = "fasta", file = ruta_salida)
+  Biostrings::writeXStringSet(aa, format = "fasta", file = ruta_salida)
 }
 
 # Uso de la función
 # seqAAtoFasta(tu_dataframe, "nombre_columna_nombres", "nombre_columna_secuencias", "ruta_salida.fasta")
-
 
 
 #--------------------------------------------------#
@@ -471,12 +453,9 @@ DNA_kappaVDJ.Extract <- function(sequence) {
   return(NULL)
 }
 
-# Test
-
-
-#Acute_Bcells_dataset_IGL %>% filter(constant == "IGL")
-#DNA_kappaVDJExtract(Acute_Bcells_dataset_IGL$sequence)
-
+# Ejemplo de uso:
+# Acute_Bcells_dataset_IGL %>% filter(constant == "IGL")
+# DNA_kappaVDJExtract(Acute_Bcells_dataset_IGL$sequence)
 
 
 #-------------------------------------#
@@ -517,9 +496,9 @@ DNA_lambdaVDJ.Extract <- function(sequence) {
   return(NULL)
 }
 
-# Test
-seq <- "asdfgteerpkbmCAAGCAGTGTACCAGGCCGTTGCGTAGCTTACTGTTCTGTGCTGACTGTCTTATGLSSDFPǴBMSBP"
-print(DNA_lambdaVDJ.Extract(seq))
+# Ejemplo de uso:
+# seq <- "asdfgteerpkbmCAAGCAGTGTACCAGGCCGTTGCGTAGCTTACTGTTCTGTGCTGACTGTCTTATGLSSDFPǴBMSBP"
+# print(DNA_lambdaVDJ.Extract(seq))
 
 
 #------------------------------------------
@@ -580,13 +559,10 @@ DNA_HeavyVDJ.extract <- function(df, columna) {
   return(subcadenas_encontradas)
 }
 
-
-
-df_test <-
-Acute_Bcells_dataset_IGH %>% filter(codigo == 5904) %>% filter(CDR3Length == 54) %>% filter(celltype == "Plasmablast") %>% filter(VGene_clonalyst == "IGHV3-23")
-  
-DNA_HeavyVDJ.extract(df_test$sequence)
-DNA_HeavyVDJ.extract(df_test, "sequence")
+# Ejemplo de uso:
+# df_test <- Acute_Bcells_dataset_IGH %>% filter(codigo == 5904) %>% filter(CDR3Length == 54) %>% filter(celltype == "Plasmablast") %>% filter(VGene_clonalyst == "IGHV3-23")
+# DNA_HeavyVDJ.extract(df_test$sequence)
+# DNA_HeavyVDJ.extract(df_test, "sequence")
 
 #----------------------------------#
 #    EXTRAER VDJ A PARTIR DE AA 2 #
@@ -626,9 +602,7 @@ AA_HeavyVDJ.extract <- function(df, columna) {
   return(subcadenas_encontradas)
 }
 
-          # AA_HeavyVDJ.extract(df, "column")
-
-generateORICP
+# Uso: AA_HeavyVDJ.extract(df, "column")
 
 
 #-------------------------------------#
@@ -652,7 +626,7 @@ GetFasta <- function(dataframe, header, sequence, output_file = NULL) {
   }
   
   # Exportar las secuencias a un archivo FASTA
-  writeXStringSet(sequences, filepath = output_file)
+  Biostrings::writeXStringSet(sequences, filepath = output_file)
   
   # Mensaje de éxito
   cat("FASTA file has been successfully written to", output_file, "\n")
@@ -679,14 +653,14 @@ contar <- function(data, columna = NULL) {
 }
                           
 #-------------------------------------#
-#     Establecer mi directorio donde se encuentra eel file       #
+#     Establecer mi directorio donde se encuentra el file       #
 #-------------------------------------#                          
 set_my_dir <- function() {
   setwd(rstudioapi::getActiveDocumentContext()$path %>% dirname())
   cat("El directorio fue configurado en:", getwd(), "\n")
 }                  
 
- #-------------------------------------#
+#-------------------------------------#
 #     Alias para el pipe      #
 #-------------------------------------#                           
-`%p%` <- magrittr::`%>%`      
+`%p%` <- magrittr::`%>%`
