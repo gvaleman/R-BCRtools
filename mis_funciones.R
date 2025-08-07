@@ -685,9 +685,4 @@ contar <- function(data, columna = NULL) {
 set_my_dir <- function() {
   setwd(rstudioapi::getActiveDocumentContext()$path %>% dirname())
   cat("El directorio fue configurado en:", getwd(), "\n")
-} 
-
- #-------------------------------------#
-#     Alias para el pipe      #
-#-------------------------------------#                           
-`%p%` <- magrittr::`%>%`                          
+}                  
