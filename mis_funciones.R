@@ -474,7 +474,7 @@ DNA_kappaVDJ.Extract <- function(sequence) {
 # Test
 
 
-Acute_Bcells_dataset_IGL %>% filter(constant == "IGL")
+#Acute_Bcells_dataset_IGL %>% filter(constant == "IGL")
 #DNA_kappaVDJExtract(Acute_Bcells_dataset_IGL$sequence)
 
 
