@@ -657,3 +657,37 @@ GetFasta <- function(dataframe, header, sequence, output_file = NULL) {
   # Mensaje de éxito
   cat("FASTA file has been successfully written to", output_file, "\n")
 }
+
+#-------------------------------------#
+#     Funcion para contar        #
+#-------------------------------------#
+contar <- function(data, columna = NULL) {
+  if (!is.null(columna)) {
+    # Si se proporcionan dos argumentos, trata al primero como data frame y al segundo como columna
+    columna_expr <- rlang::enquo(columna)
+    return(data %>%
+             dplyr::count(!!columna_expr))
+  } else {
+    # Si solo se proporciona un argumento, trata de evaluar si es un vector
+    if (is.vector(data)) {
+      return(data.frame(as.factor(data)) %>%
+               dplyr::count(as.factor(data)))
+    } else {
+      stop("Por favor, proporciona un vector o un data frame y columna válidos")
+    }
+  }
+}                        
+   }
+                          
+#-------------------------------------#
+#     Establecer mi directorio donde se encuentra eel file       #
+#-------------------------------------#                          
+set_my_dir <- function() {
+  setwd(rstudioapi::getActiveDocumentContext()$path %>% dirname())
+  cat("El directorio fue configurado en:", getwd(), "\n")
+} 
+
+ #-------------------------------------#
+#     Alias para el pipe      #
+#-------------------------------------#                           
+`%p%` <- magrittr::`%>%`                          
