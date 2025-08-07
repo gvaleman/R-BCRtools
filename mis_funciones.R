@@ -277,7 +277,7 @@ RNAtoAmino <- function(cadena) {
   }
 }
 
-RNAtoAmino("UUUUUUUGG")
+#RNAtoAmino("UUUUUUUGG")
 
 
 DNAtoAmino <- function(cadena) {
