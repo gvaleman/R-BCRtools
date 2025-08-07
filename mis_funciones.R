@@ -676,8 +676,7 @@ contar <- function(data, columna = NULL) {
       stop("Por favor, proporciona un vector o un data frame y columna válidos")
     }
   }
-}                        
-   }
+}
                           
 #-------------------------------------#
 #     Establecer mi directorio donde se encuentra eel file       #
