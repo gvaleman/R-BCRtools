@@ -664,3 +664,31 @@ set_my_dir <- function() {
 #     Alias para el pipe      #
 #-------------------------------------#                           
 `%p%` <- magrittr::`%>%`
+
+
+#-------------------------------------#
+#        KmerHunter.V3               #
+#-------------------------------------#
+# Fast and efficient k-mer extraction from biological sequences, mainly cdr3 bcr
+# Handles both nucleotide (DNA/RNA) and amino acid (protein) sequences
+# Uses vectorized operations for optimal performance
+# Author: Gerald Vasquez
+# Date: 05 sept 2025
+# GitHub: @gvaleman
+#-------------------------------------#
+
+KmerHunter.V3 <- function(secuencias, k) {
+  # Single vectorized validation (works for any character sequence)
+  valid_mask <- nchar(secuencias) >= k & !is.na(secuencias)
+  
+  # Vectorized processing
+  ifelse(valid_mask,
+         vapply(secuencias, function(seq) {
+           n <- nchar(seq)
+           paste(substring(seq, 1:(n-k+1), k:n), collapse = ";")
+         }, character(1), USE.NAMES = FALSE),
+         "")
+}
+
+
+                          
