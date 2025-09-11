@@ -690,5 +690,37 @@ KmerHunter.V3 <- function(secuencias, k) {
          "")
 }
 
+#-------------------------------------#
+#        ver.nodos               #
+#-------------------------------------#
+# Funcion para visualizar rapidamente los nodos de un arbol filogenetico
+# Author: Gerald Vasquez
+# Date: 11 sept 2025
+# GitHub: @gvaleman
+#-------------------------------------#
+ver.nodos <- function(arbol) {
+  # Mensaje de advertencia al usuario
+  message("⚠️ Esta función requiere las librerías: ggtree, ggplot2 y treeio. 
+           Asegúrate de haberlas instalado y cargado con library().")
+  
+  # Verificar si el objeto es un árbol válido
+  if (!"phylo" %in% class(arbol)) {
+    stop("El objeto proporcionado no es de clase 'phylo'.")
+  }
+  
+  # Número de tips y nodos internos
+  Ntip <- length(arbol$tip.label)
+  internal_nodes <- (Ntip + 1):(Ntip + arbol$Nnode)
+  
+  # Graficar con ggtree e imprimir
+  p <- ggtree(arbol) + 
+    geom_text2(aes(subset = !isTip, label = node), 
+               hjust = -0.2, size = 3) +
+    theme_tree2()
+  
+  return(p)
+}
+
+
 
                           
