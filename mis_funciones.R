@@ -675,19 +675,25 @@ set_my_dir <- function() {
 # Author: Gerald Vasquez
 # Date: 05 sept 2025
 # GitHub: @gvaleman
+#Version V3.1 - Jan 11, 2025
 #-------------------------------------#
 
 KmerHunter.V3 <- function(secuencias, k) {
-  # Single vectorized validation (works for any character sequence)
+  # Inicializar resultado con strings vacíos
+  resultado <- character(length(secuencias))
+  
+  # Máscara de validación
   valid_mask <- nchar(secuencias) >= k & !is.na(secuencias)
   
-  # Vectorized processing
-  ifelse(valid_mask,
-         vapply(secuencias, function(seq) {
-           n <- nchar(seq)
-           paste(substring(seq, 1:(n-k+1), k:n), collapse = ";")
-         }, character(1), USE.NAMES = FALSE),
-         "")
+  # Procesar solo las secuencias válidas
+  if (any(valid_mask)) {
+    resultado[valid_mask] <- vapply(secuencias[valid_mask], function(seq) {
+      n <- nchar(seq)
+      paste(substring(seq, 1:(n-k+1), k:n), collapse = ";")
+    }, character(1), USE.NAMES = FALSE)
+  }
+  
+  return(resultado)
 }
 
 #-------------------------------------#
